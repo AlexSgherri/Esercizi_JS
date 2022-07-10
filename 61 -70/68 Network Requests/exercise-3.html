@@ -1,0 +1,53 @@
+<html>
+  <body>
+    <div id="container">
+      <form id="add-post">
+        <div>
+          <label>Title</label>
+          <input type="text" id="todo-title" />
+        </div>
+        <div>
+          <label>Completed</label>
+          <input type="checkbox" id="todo-completed" />
+        </div>
+
+        <button type="submit" id="submit-todo">Submit</button>
+      </form>
+    </div>
+  </body>
+</html>
+
+<script>
+
+  const divContainer = document.querySelector("#container");
+  const p = document.createElement("p");
+  const form = document.querySelector("#add-post");
+
+  form.addEventListener("submit", (e) => {
+
+    e.preventDefault();
+    let title = document.getElementById("todo-title").value;
+    let completed = document.getElementById("todo-completed").checked;
+
+      fetch("https://jsonplaceholder.typicode.com/posts", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({ title, completed}),
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        p.innerText = '';
+        divContainer.append(p);
+        for (const [key, value] of Object.entries(data)){
+          p.append(key+ ' : ' +value);
+          const br = document.createElement('br')
+          p.append(br);
+        }
+        document.getElementById('todo-title').value= '';
+        document.getElementById('todo-completed').checked= false;
+      }).catch(err => console.error(err))
+
+  });
+</script>

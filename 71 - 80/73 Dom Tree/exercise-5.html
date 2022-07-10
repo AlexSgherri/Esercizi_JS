@@ -1,0 +1,46 @@
+<html>
+  <body>
+    <div id="container">
+      <button id="add-row">Add row</button>
+      <h2>Person's List</h2>
+      <table id="person-table">
+        <tbody></tbody>
+      </table>
+    </div>
+  </body>
+</html>
+
+<script>
+  const table = document.getElementById("person-table");
+  const tBody = document.querySelector("#person-table tbody");
+  
+  const person = {
+    firstName: "Mario",
+    lastName: "Rossi",
+    age: 25,
+  };
+
+  table.setAttribute("style", "text-align: center");
+  function addRow() {
+    if (!document.querySelector("#person-table th")) {
+      const th1 = document.createElement("th");
+      th1.innerText = "First Name";
+      tBody.append(th1);
+      const th2 = document.createElement("th");
+      th2.innerText = "Last Name";
+      tBody.append(th2);
+      const th3 = document.createElement("th");
+      th3.innerText = "Age";
+      tBody.append(th3);
+    }
+
+    const row = tBody.insertRow(0);
+    for (i = 0; i < 3; i++) {
+      const cell = row.insertCell(i);
+      cell.innerText = Object.values(person)[i];
+    }
+  }
+  const buttonAddRow = document.getElementById("add-row");
+  buttonAddRow.setAttribute("style", "display:inline-block")
+  buttonAddRow.addEventListener("click", addRow);
+</script>

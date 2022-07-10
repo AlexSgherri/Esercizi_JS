@@ -1,0 +1,39 @@
+<html>
+  <body>
+    <div id="container" style="display: flex; align-items: center"></div>
+  </body>
+</html>
+<script>
+  let dataFetched = null;
+  const divContainer = document.querySelector("#container");
+  function fetchingTodos(id) {
+    return new Promise((resolve, reject) => {
+      const data = fetch("https://jsonplaceholder.typicode.com/todos");
+      if (!data) {
+        reject("Errore");
+      }
+      resolve(data);
+    });
+  }
+
+  fetchingTodos(4)
+    .then((dataToJson) => {
+      console.log(dataToJson);
+      dataToJson.json();
+    })
+    .then((data) => {
+      console.log(data);
+      data.find((element) => element.id === id);
+      if (!data) {
+        console.error("errore");
+      }
+      const accadue = document.createElement("h2");
+      accadue.innerText = dataFetched.title;
+      const inputCheckbox = document.createElement("input");
+      inputCheckbox.setAttribute("type", "checkbox");
+      inputCheckbox.checked = dataFetched.completed;
+      divContainer.append(inputCheckbox);
+      divContainer.append(accadue);
+    })
+    .catch((err) => console.error(err));
+</script>

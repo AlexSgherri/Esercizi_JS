@@ -1,0 +1,34 @@
+<html>
+  <body>
+    <div id="container">
+      <button type="button" id="fetch-post">
+        Fetch Post from LocalStorage
+      </button>
+
+      <h2>Post: <span id="post-title"></span></h2>
+    </div>
+  </body>
+</html>
+
+<script>
+
+  const buttonFetch = document.querySelector("#fetch-post");
+  const postSpace = document.querySelector("#post-title")
+
+  let storage = null;
+
+  buttonFetch.addEventListener("click", async () => {
+    
+    try{
+      const dataFetched = await localStorage.getItem('SceltaMia');
+      if(!dataFetched){
+        throw new Error ('Chiave non presente');
+      }
+      postSpace.append(JSON.parse(dataFetched).title)
+    }
+    catch(err){
+      console.error(err)
+    }
+
+  });
+</script>

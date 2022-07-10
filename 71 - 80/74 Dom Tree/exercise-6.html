@@ -1,0 +1,67 @@
+<html>
+  <body>
+    <div id="container">
+      <h2>Person's Form</h2>
+      <form id="person-form">
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  </body>
+</html>
+
+<script>
+  
+  const form = document.getElementById("person-form");
+
+  function initForm(){
+
+    for(i=0 ; i < 3 ; i++){
+      const createDiv = document.createElement('div');
+      form.append(createDiv);
+    }
+  // labels
+  const labelFirstName = document.createElement('label');
+  const labelLastName = document.createElement('label');
+  const labelAge = document.createElement('label');
+  labelFirstName.innerText = "First Name :";
+  labelAge.innerText = "Age :";
+  labelLastName.innerText = "Last Name :";
+  //inputs
+  const inputFirstName = document.createElement('input')
+  inputFirstName.setAttribute('type', 'text');
+  inputFirstName.setAttribute('id', 'input-first-name');
+  const inputLastName = document.createElement('input');
+  inputLastName.setAttribute('type', 'text');
+  inputLastName.setAttribute('id', 'input-last-name');
+  const inputAge = document.createElement('input');
+  inputAge.setAttribute('type', 'number');
+  inputAge.setAttribute('id', 'input-age');
+  //Targeting and appends
+  const div1 = document.querySelector('#person-form div:nth-child(2)');
+  const div2 = document.querySelector('#person-form div:nth-child(3)');
+  const div3 = document.querySelector('#person-form div:nth-child(4)');
+  div1.append(labelFirstName);
+  div1.append(inputFirstName);
+  div2.append(labelLastName);
+  div2.append(inputLastName);
+  div3.append(labelAge);
+  div3.append(inputAge);
+
+}
+//submitPersonForm
+function submitPersonForm(e) {
+    e.preventDefault();
+    const firstName = document.getElementById('input-first-name').value;
+    const lastName = document.getElementById('input-last-name').value;
+    const age = document.getElementById('input-age').value;
+    const person = {firstName, lastName, age};
+    console.log(person);
+//resets
+    form.reset();
+}
+//initializing form
+window.addEventListener("DOMContentLoaded", initForm);
+//form event
+  form.addEventListener('submit', submitPersonForm);
+
+  </script>
